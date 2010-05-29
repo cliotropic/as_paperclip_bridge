@@ -22,7 +22,10 @@ module ActiveScaffold::Config
 
     def configure_paperclip_field(field)
       self.columns << field
-      self.columns[field].list_ui ||= self.model.attachment_definitions[field][:styles].try(:include?, :thumbnail) ? :paperclip_thumb : :paperclip_link
+			# TODO: write some code to detect whether Redbox is loaded and behave conditionally here
+      #self.columns[field].list_ui ||= self.model.attachment_definitions[field][:styles].try(:include?, :thumbnail) ? :paperclip_thumb : :paperclip_link
+      self.columns[field].list_ui ||= self.model.attachment_definitions[field][:styles].try(:include?, :thumbnail) ? :paperclip_redbox_thumb : :paperclip_redbox_link
+
       self.columns[field].form_ui ||= :paperclip
 
       ['file_name', 'content_type', 'file_size', 'updated_at'].each{ |f|
